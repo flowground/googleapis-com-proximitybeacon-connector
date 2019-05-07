@@ -1,0 +1,65 @@
+{
+    "type": "object",
+    "properties": {
+        "namespaceName": {
+            "required": true,
+            "type": "string"
+        },
+        "projectId": {
+            "type": "string"
+        },
+        "alt": {
+            "type": "string",
+            "enum": [
+                "json",
+                "media",
+                "proto"
+            ],
+            "default": "json"
+        },
+        "callback": {
+            "type": "string"
+        },
+        "fields": {
+            "type": "string"
+        },
+        "key": {
+            "type": "string"
+        },
+        "oauth_token": {
+            "type": "string"
+        },
+        "prettyPrint": {
+            "type": "boolean",
+            "default": true
+        },
+        "quotaUser": {
+            "type": "string"
+        },
+        "uploadType": {
+            "type": "string"
+        },
+        "upload_protocol": {
+            "type": "string"
+        },
+        "requestBody": {
+            "description": "An attachment namespace defines read and write access for all the attachments\ncreated under it. Each namespace is globally unique, and owned by one\nproject which is the only project that can create attachments under it.",
+            "properties": {
+                "namespaceName": {
+                    "description": "Resource name of this namespace. Namespaces names have the format:\n<code>namespaces/<var>namespace</var></code>.",
+                    "type": "string"
+                },
+                "servingVisibility": {
+                    "description": "Specifies what clients may receive attachments under this namespace\nvia `beaconinfo.getforobserved`.",
+                    "enum": [
+                        "VISIBILITY_UNSPECIFIED",
+                        "UNLISTED",
+                        "PUBLIC"
+                    ],
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        }
+    }
+}

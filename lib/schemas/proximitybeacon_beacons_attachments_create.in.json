@@ -1,0 +1,75 @@
+{
+    "type": "object",
+    "properties": {
+        "beaconName": {
+            "required": true,
+            "type": "string"
+        },
+        "projectId": {
+            "type": "string"
+        },
+        "alt": {
+            "type": "string",
+            "enum": [
+                "json",
+                "media",
+                "proto"
+            ],
+            "default": "json"
+        },
+        "callback": {
+            "type": "string"
+        },
+        "fields": {
+            "type": "string"
+        },
+        "key": {
+            "type": "string"
+        },
+        "oauth_token": {
+            "type": "string"
+        },
+        "prettyPrint": {
+            "type": "boolean",
+            "default": true
+        },
+        "quotaUser": {
+            "type": "string"
+        },
+        "uploadType": {
+            "type": "string"
+        },
+        "upload_protocol": {
+            "type": "string"
+        },
+        "requestBody": {
+            "description": "Project-specific data associated with a beacon.",
+            "properties": {
+                "attachmentName": {
+                    "description": "Resource name of this attachment. Attachment names have the format:\n<code>beacons/<var>beacon_id</var>/attachments/<var>attachment_id</var></code>.\nLeave this empty on creation.",
+                    "type": "string"
+                },
+                "creationTimeMs": {
+                    "description": "The UTC time when this attachment was created, in milliseconds since the\nUNIX epoch.",
+                    "format": "google-datetime",
+                    "type": "string"
+                },
+                "data": {
+                    "description": "An opaque data container for client-provided data. Must be\n[base64](http://tools.ietf.org/html/rfc4648#section-4) encoded in HTTP\nrequests, and will be so encoded (with padding) in responses.\nRequired.",
+                    "format": "byte",
+                    "type": "string"
+                },
+                "maxDistanceMeters": {
+                    "description": "The distance away from the beacon at which this attachment should be\ndelivered to a mobile app.\n\nSetting this to a value greater than zero indicates that the app should\nbehave as if the beacon is \"seen\" when the mobile device is less than this\ndistance away from the beacon.\n\nDifferent attachments on the same beacon can have different max distances.\n\nNote that even though this value is expressed with fractional meter\nprecision, real-world behavior is likley to be much less precise than one\nmeter, due to the nature of current Bluetooth radio technology.\n\nOptional. When not set or zero, the attachment should be delivered at the\nbeacon's outer limit of detection.\n\nNegative values are invalid and return an error.",
+                    "format": "double",
+                    "type": "number"
+                },
+                "namespacedType": {
+                    "description": "Specifies what kind of attachment this is. Tells a client how to\ninterpret the `data` field. Format is <var>namespace/type</var>. Namespace\nprovides type separation between clients. Type describes the type of\n`data`, for use by the client when parsing the `data` field.\nRequired.",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        }
+    }
+}

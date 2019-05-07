@@ -1,0 +1,180 @@
+{
+    "type": "object",
+    "properties": {
+        "projectId": {
+            "type": "string"
+        },
+        "access_token": {
+            "type": "string"
+        },
+        "alt": {
+            "type": "string",
+            "enum": [
+                "json",
+                "media",
+                "proto"
+            ],
+            "default": "json"
+        },
+        "callback": {
+            "type": "string"
+        },
+        "fields": {
+            "type": "string"
+        },
+        "key": {
+            "type": "string"
+        },
+        "oauth_token": {
+            "type": "string"
+        },
+        "prettyPrint": {
+            "type": "boolean",
+            "default": true
+        },
+        "quotaUser": {
+            "type": "string"
+        },
+        "uploadType": {
+            "type": "string"
+        },
+        "upload_protocol": {
+            "type": "string"
+        },
+        "requestBody": {
+            "description": "Details of a beacon device.",
+            "properties": {
+                "advertisedId": {
+                    "description": "The identifier of a beacon as advertised by it. This field must be\npopulated when registering. It may be empty when updating a beacon\nrecord because it is ignored in updates.\n\nWhen registering a beacon that broadcasts Eddystone-EID, this field\nshould contain a \"stable\" Eddystone-UID that identifies the beacon and\nlinks it to its attachments. The stable Eddystone-UID is only used for\nadministering the beacon.",
+                    "properties": {
+                        "id": {
+                            "description": "The actual beacon identifier, as broadcast by the beacon hardware. Must be\n[base64](http://tools.ietf.org/html/rfc4648#section-4) encoded in HTTP\nrequests, and will be so encoded (with padding) in responses. The base64\nencoding should be of the binary byte-stream and not any textual (such as\nhex) representation thereof.\nRequired.",
+                            "format": "byte",
+                            "type": "string"
+                        },
+                        "type": {
+                            "description": "Specifies the identifier type.\nRequired.",
+                            "enum": [
+                                "TYPE_UNSPECIFIED",
+                                "EDDYSTONE",
+                                "IBEACON",
+                                "ALTBEACON",
+                                "EDDYSTONE_EID"
+                            ],
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "beaconName": {
+                    "description": "Resource name of this beacon. A beacon name has the format\n\"beacons/N!beaconId\" where the beaconId is the base16 ID broadcast by\nthe beacon and N is a code for the beacon's type. Possible values are\n`3` for Eddystone, `1` for iBeacon, or `5` for AltBeacon.\n\nThis field must be left empty when registering. After reading a beacon,\nclients can use the name for future operations.",
+                    "type": "string"
+                },
+                "description": {
+                    "description": "Free text used to identify and describe the beacon. Maximum length 140\ncharacters.\nOptional.",
+                    "type": "string"
+                },
+                "ephemeralIdRegistration": {
+                    "description": "Write-only registration parameters for beacons using Eddystone-EID\n(remotely resolved ephemeral ID) format. This information will not be\npopulated in API responses. When submitting this data, the `advertised_id`\nfield must contain an ID of type Eddystone-UID. Any other ID type will\nresult in an error.",
+                    "properties": {
+                        "beaconEcdhPublicKey": {
+                            "description": "The beacon's public key used for the Elliptic curve Diffie-Hellman\nkey exchange. When this field is populated, `service_ecdh_public_key`\nmust also be populated, and `beacon_identity_key` must not be.",
+                            "format": "byte",
+                            "type": "string"
+                        },
+                        "beaconIdentityKey": {
+                            "description": "The private key of the beacon. If this field is populated,\n`beacon_ecdh_public_key` and `service_ecdh_public_key` must not be\npopulated.",
+                            "format": "byte",
+                            "type": "string"
+                        },
+                        "initialClockValue": {
+                            "description": "The initial clock value of the beacon. The beacon's clock must have\nbegun counting at this value immediately prior to transmitting this\nvalue to the resolving service. Significant delay in transmitting this\nvalue to the service risks registration or resolution failures. If a\nvalue is not provided, the default is zero.",
+                            "format": "uint64",
+                            "type": "string"
+                        },
+                        "initialEid": {
+                            "description": "An initial ephemeral ID calculated using the clock value submitted as\n`initial_clock_value`, and the secret key generated by the\nDiffie-Hellman key exchange using `service_ecdh_public_key` and\n`service_ecdh_public_key`. This initial EID value will be used by the\nservice to confirm that the key exchange process was successful.",
+                            "format": "byte",
+                            "type": "string"
+                        },
+                        "rotationPeriodExponent": {
+                            "description": "Indicates the nominal period between each rotation of the beacon's\nephemeral ID. \"Nominal\" because the beacon should randomize the\nactual interval. See [the spec at\ngithub](https://github.com/google/eddystone/tree/master/eddystone-eid)\nfor details. This value corresponds to a power-of-two scaler on the\nbeacon's clock: when the scaler value is K, the beacon will begin\nbroadcasting a new ephemeral ID on average every 2^K seconds.",
+                            "format": "uint32",
+                            "type": "integer"
+                        },
+                        "serviceEcdhPublicKey": {
+                            "description": "The service's public key used for the Elliptic curve Diffie-Hellman\nkey exchange. When this field is populated, `beacon_ecdh_public_key`\nmust also be populated, and `beacon_identity_key` must not be.",
+                            "format": "byte",
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "expectedStability": {
+                    "description": "Expected location stability. This is set when the beacon is registered or\nupdated, not automatically detected in any way.\nOptional.",
+                    "enum": [
+                        "STABILITY_UNSPECIFIED",
+                        "STABLE",
+                        "PORTABLE",
+                        "MOBILE",
+                        "ROVING"
+                    ],
+                    "type": "string"
+                },
+                "indoorLevel": {
+                    "description": "The indoor level information for this beacon, if known. As returned by the\nGoogle Maps API.\nOptional.",
+                    "properties": {
+                        "name": {
+                            "description": "The name of this level.",
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "latLng": {
+                    "description": "The location of the beacon, expressed as a latitude and longitude pair.\nThis location is given when the beacon is registered or updated. It does\nnot necessarily indicate the actual current location of the beacon.\nOptional.",
+                    "properties": {
+                        "latitude": {
+                            "description": "The latitude in degrees. It must be in the range [-90.0, +90.0].",
+                            "format": "double",
+                            "type": "number"
+                        },
+                        "longitude": {
+                            "description": "The longitude in degrees. It must be in the range [-180.0, +180.0].",
+                            "format": "double",
+                            "type": "number"
+                        }
+                    },
+                    "type": "object"
+                },
+                "placeId": {
+                    "description": "The [Google Places API](/places/place-id) Place ID of the place where\nthe beacon is deployed. This is given when the beacon is registered or\nupdated, not automatically detected in any way.\nOptional.",
+                    "type": "string"
+                },
+                "properties": {
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Properties of the beacon device, for example battery type or firmware\nversion.\nOptional.",
+                    "type": "object"
+                },
+                "provisioningKey": {
+                    "description": "Some beacons may require a user to provide an authorization key before\nchanging any of its configuration (e.g. broadcast frames, transmit power).\nThis field provides a place to store and control access to that key.\nThis field is populated in responses to `GET /v1beta1/beacons/3!beaconId`\nfrom users with write access to the given beacon. That is to say: If the\nuser is authorized to write the beacon's confidential data in the service,\nthe service considers them authorized to configure the beacon. Note\nthat this key grants nothing on the service, only on the beacon itself.",
+                    "format": "byte",
+                    "type": "string"
+                },
+                "status": {
+                    "description": "Current status of the beacon.\nRequired.",
+                    "enum": [
+                        "STATUS_UNSPECIFIED",
+                        "ACTIVE",
+                        "DECOMMISSIONED",
+                        "INACTIVE"
+                    ],
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        }
+    }
+}

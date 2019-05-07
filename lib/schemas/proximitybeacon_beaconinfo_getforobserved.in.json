@@ -1,0 +1,104 @@
+{
+    "type": "object",
+    "properties": {
+        "access_token": {
+            "type": "string"
+        },
+        "alt": {
+            "type": "string",
+            "enum": [
+                "json",
+                "media",
+                "proto"
+            ],
+            "default": "json"
+        },
+        "callback": {
+            "type": "string"
+        },
+        "fields": {
+            "type": "string"
+        },
+        "key": {
+            "type": "string"
+        },
+        "oauth_token": {
+            "type": "string"
+        },
+        "prettyPrint": {
+            "type": "boolean",
+            "default": true
+        },
+        "quotaUser": {
+            "type": "string"
+        },
+        "uploadType": {
+            "type": "string"
+        },
+        "upload_protocol": {
+            "type": "string"
+        },
+        "requestBody": {
+            "description": "Request for beacon and attachment information about beacons that\na mobile client has encountered \"in the wild\".",
+            "properties": {
+                "namespacedTypes": {
+                    "description": "Specifies what kind of attachments to include in the response.\nWhen given, the response will include only attachments of the given types.\nWhen empty, no attachments will be returned. Must be in the format\n<var>namespace/type</var>. Accepts `*` to specify all types in\nall namespaces owned by the client.\nOptional.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "observations": {
+                    "description": "The beacons that the client has encountered.\nAt least one must be given.",
+                    "items": {
+                        "description": "Represents one beacon observed once.",
+                        "properties": {
+                            "advertisedId": {
+                                "description": "The ID advertised by the beacon the client has encountered.\n\nIf the submitted `advertised_id` type is Eddystone-EID, then the client\nmust be authorized to resolve the given beacon. Otherwise no data will be\nreturned for that beacon.\nRequired.",
+                                "properties": {
+                                    "id": {
+                                        "description": "The actual beacon identifier, as broadcast by the beacon hardware. Must be\n[base64](http://tools.ietf.org/html/rfc4648#section-4) encoded in HTTP\nrequests, and will be so encoded (with padding) in responses. The base64\nencoding should be of the binary byte-stream and not any textual (such as\nhex) representation thereof.\nRequired.",
+                                        "format": "byte",
+                                        "type": "string"
+                                    },
+                                    "type": {
+                                        "description": "Specifies the identifier type.\nRequired.",
+                                        "enum": [
+                                            "TYPE_UNSPECIFIED",
+                                            "EDDYSTONE",
+                                            "IBEACON",
+                                            "ALTBEACON",
+                                            "EDDYSTONE_EID"
+                                        ],
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "telemetry": {
+                                "description": "The array of telemetry bytes received from the beacon. The server is\nresponsible for parsing it. This field may frequently be empty, as\nwith a beacon that transmits telemetry only occasionally.",
+                                "format": "byte",
+                                "type": "string"
+                            },
+                            "timestampMs": {
+                                "description": "Time when the beacon was observed.",
+                                "format": "google-datetime",
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "type": "array"
+                }
+            },
+            "type": "object"
+        },
+        "__xgafv": {
+            "type": "string",
+            "enum": [
+                "1",
+                "2"
+            ]
+        }
+    }
+}

@@ -1,0 +1,339 @@
+{
+    "title": "Proximity Beacon",
+    "description": "Registers, manages, indexes, and searches beacons.",
+    "docsUrl": "https://developers.google.com/beacons/proximity/",
+    "url": "https://api.apis.guru/v2/specs/googleapis.com/proximitybeacon/v1beta1/swagger.json",
+    "envVars": {
+        "OAUTH_CLIENT_ID": {
+            "description": "OAuth Client ID"
+        },
+        "OAUTH_CLIENT_SECRET": {
+            "description": "OAuth Client Secret"
+        }
+    },
+    "credentials": {
+        "fields": {
+            "server": {
+                "label": "Server",
+                "viewClass": "SelectView",
+                "model": [
+                    "https://proximitybeacon.googleapis.com/",
+                    "--- Custom URL"
+                ],
+                "required": true
+            },
+            "otherServer": {
+                "label": "Custom Server URL",
+                "viewClass": "TextFieldView"
+            },
+            "Oauth2": {
+                "label": "Oauth 2.0 authentication",
+                "viewClass": "OAuthFieldView"
+            }
+        },
+        "oauth2": {
+            "client_id": "{{OAUTH_CLIENT_ID}}",
+            "client_secret": "{{OAUTH_CLIENT_SECRET}}",
+            "auth_uri": "https://accounts.google.com/o/oauth2/auth"
+        }
+    },
+    "triggers": {
+        "startFlow": {
+            "main": "./lib/triggers/startFlow.js",
+            "type": "polling",
+            "title": "Start Flow",
+            "fields": {}
+        }
+    },
+    "actions": {
+        "proximitybeacon_beaconinfo_getforobserved": {
+            "main": "./lib/actions/proximitybeacon_beaconinfo_getforobserved.js",
+            "title": "Given one or more beacon observations, returns any beacon information\nand attachments accessible to your application. Authorize by using the\n[API key](https://developers.google.com/beacons/proximity/get-started#request_a_browser_api_key)\nfor the application.",
+            "description": "Given one or more beacon observations, returns any beacon information\nand attachments accessible to your application. Authorize by using the\n[API key](https://developers.google.com/beacons/proximity/get-started#request_a_browser_api_key)\nfor the application.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/proximitybeacon_beaconinfo_getforobserved.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "proximitybeacon_beacons_list": {
+            "main": "./lib/actions/proximitybeacon_beacons_list.js",
+            "title": "Searches the beacon registry for beacons that match the given search\ncriteria. Only those beacons that the client has permission to list\nwill be returned.\n\nAuthenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2)\nfrom a signed-in user with **viewer**, **Is owner** or **Can edit**\npermissions in the Google Developers Console project.",
+            "description": "Searches the beacon registry for beacons that match the given search\ncriteria. Only those beacons that the client has permission to list\nwill be returned.\n\nAuthenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2)\nfrom a signed-in user with **viewer**, **Is owner** or **Can edit**\npermissions in the Google Developers Console project.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/proximitybeacon_beacons_list.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "proximitybeacon_beacons_register": {
+            "main": "./lib/actions/proximitybeacon_beacons_register.js",
+            "title": "Registers a previously unregistered beacon given its `advertisedId`.\nThese IDs are unique within the system. An ID can be registered only once.\n\nAuthenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2)\nfrom a signed-in user with **Is owner** or **Can edit** permissions in the\nGoogle Developers Console project.",
+            "description": "Registers a previously unregistered beacon given its `advertisedId`.\nThese IDs are unique within the system. An ID can be registered only once.\n\nAuthenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2)\nfrom a signed-in user with **Is owner** or **Can edit** permissions in the\nGoogle Developers Console project.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/proximitybeacon_beacons_register.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "proximitybeacon_getEidparams": {
+            "main": "./lib/actions/proximitybeacon_getEidparams.js",
+            "title": "Gets the Proximity Beacon API's current public key and associated\nparameters used to initiate the Diffie-Hellman key exchange required to\nregister a beacon that broadcasts the Eddystone-EID format. This key\nchanges periodically; clients may cache it and re-use the same public key\nto provision and register multiple beacons. However, clients should be\nprepared to refresh this key when they encounter an error registering an\nEddystone-EID beacon.",
+            "description": "Gets the Proximity Beacon API's current public key and associated\nparameters used to initiate the Diffie-Hellman key exchange required to\nregister a beacon that broadcasts the Eddystone-EID format. This key\nchanges periodically; clients may cache it and re-use the same public key\nto provision and register multiple beacons. However, clients should be\nprepared to refresh this key when they encounter an error registering an\nEddystone-EID beacon.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/proximitybeacon_getEidparams.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "proximitybeacon_namespaces_list": {
+            "main": "./lib/actions/proximitybeacon_namespaces_list.js",
+            "title": "Lists all attachment namespaces owned by your Google Developers Console\nproject. Attachment data associated with a beacon must include a\nnamespaced type, and the namespace must be owned by your project.\n\nAuthenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2)\nfrom a signed-in user with **viewer**, **Is owner** or **Can edit**\npermissions in the Google Developers Console project.",
+            "description": "Lists all attachment namespaces owned by your Google Developers Console\nproject. Attachment data associated with a beacon must include a\nnamespaced type, and the namespace must be owned by your project.\n\nAuthenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2)\nfrom a signed-in user with **viewer**, **Is owner** or **Can edit**\npermissions in the Google Developers Console project.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/proximitybeacon_namespaces_list.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "proximitybeacon_beacons_attachments_delete": {
+            "main": "./lib/actions/proximitybeacon_beacons_attachments_delete.js",
+            "title": "Deletes the specified attachment for the given beacon. Each attachment has\na unique attachment name (`attachmentName`) which is returned when you\nfetch the attachment data via this API. You specify this with the delete\nrequest to control which attachment is removed. This operation cannot be\nundone.\n\nAuthenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2)\nfrom a signed-in user with **Is owner** or **Can edit** permissions in the\nGoogle Developers Console project.",
+            "description": "Deletes the specified attachment for the given beacon. Each attachment has\na unique attachment name (`attachmentName`) which is returned when you\nfetch the attachment data via this API. You specify this with the delete\nrequest to control which attachment is removed. This operation cannot be\nundone.\n\nAuthenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2)\nfrom a signed-in user with **Is owner** or **Can edit** permissions in the\nGoogle Developers Console project.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/proximitybeacon_beacons_attachments_delete.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "proximitybeacon_beacons_delete": {
+            "main": "./lib/actions/proximitybeacon_beacons_delete.js",
+            "title": "Deletes the specified beacon including all diagnostics data for the beacon\nas well as any attachments on the beacon (including those belonging to\nother projects). This operation cannot be undone.\n\nAuthenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2)\nfrom a signed-in user with **Is owner** or **Can edit** permissions in the\nGoogle Developers Console project.",
+            "description": "Deletes the specified beacon including all diagnostics data for the beacon\nas well as any attachments on the beacon (including those belonging to\nother projects). This operation cannot be undone.\n\nAuthenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2)\nfrom a signed-in user with **Is owner** or **Can edit** permissions in the\nGoogle Developers Console project.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/proximitybeacon_beacons_delete.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "proximitybeacon_beacons_get": {
+            "main": "./lib/actions/proximitybeacon_beacons_get.js",
+            "title": "Returns detailed information about the specified beacon.\n\nAuthenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2)\nfrom a signed-in user with **viewer**, **Is owner** or **Can edit**\npermissions in the Google Developers Console project.\n\nRequests may supply an Eddystone-EID beacon name in the form:\n`beacons/4!beaconId` where the `beaconId` is the base16 ephemeral ID\nbroadcast by the beacon. The returned `Beacon` object will contain the\nbeacon's stable Eddystone-UID. Clients not authorized to resolve the\nbeacon's ephemeral Eddystone-EID broadcast will receive an error.",
+            "description": "Returns detailed information about the specified beacon.\n\nAuthenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2)\nfrom a signed-in user with **viewer**, **Is owner** or **Can edit**\npermissions in the Google Developers Console project.\n\nRequests may supply an Eddystone-EID beacon name in the form:\n`beacons/4!beaconId` where the `beaconId` is the base16 ephemeral ID\nbroadcast by the beacon. The returned `Beacon` object will contain the\nbeacon's stable Eddystone-UID. Clients not authorized to resolve the\nbeacon's ephemeral Eddystone-EID broadcast will receive an error.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/proximitybeacon_beacons_get.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "proximitybeacon_beacons_update": {
+            "main": "./lib/actions/proximitybeacon_beacons_update.js",
+            "title": "Updates the information about the specified beacon. **Any field that you do\nnot populate in the submitted beacon will be permanently erased**, so you\nshould follow the \"read, modify, write\" pattern to avoid inadvertently\ndestroying data.\n\nChanges to the beacon status via this method will be  silently ignored.\nTo update beacon status, use the separate methods on this API for\nactivation, deactivation, and decommissioning.\nAuthenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2)\nfrom a signed-in user with **Is owner** or **Can edit** permissions in the\nGoogle Developers Console project.",
+            "description": "Updates the information about the specified beacon. **Any field that you do\nnot populate in the submitted beacon will be permanently erased**, so you\nshould follow the \"read, modify, write\" pattern to avoid inadvertently\ndestroying data.\n\nChanges to the beacon status via this method will be  silently ignored.\nTo update beacon status, use the separate methods on this API for\nactivation, deactivation, and decommissioning.\nAuthenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2)\nfrom a signed-in user with **Is owner** or **Can edit** permissions in the\nGoogle Developers Console project.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/proximitybeacon_beacons_update.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "proximitybeacon_beacons_attachments_list": {
+            "main": "./lib/actions/proximitybeacon_beacons_attachments_list.js",
+            "title": "Returns the attachments for the specified beacon that match the specified\nnamespaced-type pattern.\n\nTo control which namespaced types are returned, you add the\n`namespacedType` query parameter to the request. You must either use\n`*/*`, to return all attachments, or the namespace must be one of\nthe ones returned from the  `namespaces` endpoint.\n\nAuthenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2)\nfrom a signed-in user with **viewer**, **Is owner** or **Can edit**\npermissions in the Google Developers Console project.",
+            "description": "Returns the attachments for the specified beacon that match the specified\nnamespaced-type pattern.\n\nTo control which namespaced types are returned, you add the\n`namespacedType` query parameter to the request. You must either use\n`*/*`, to return all attachments, or the namespace must be one of\nthe ones returned from the  `namespaces` endpoint.\n\nAuthenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2)\nfrom a signed-in user with **viewer**, **Is owner** or **Can edit**\npermissions in the Google Developers Console project.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/proximitybeacon_beacons_attachments_list.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "proximitybeacon_beacons_attachments_create": {
+            "main": "./lib/actions/proximitybeacon_beacons_attachments_create.js",
+            "title": "Associates the given data with the specified beacon. Attachment data must\ncontain two parts:\n<ul>\n<li>A namespaced type.</li>\n<li>The actual attachment data itself.</li>\n</ul>\nThe namespaced type consists of two parts, the namespace and the type.\nThe namespace must be one of the values returned by the `namespaces`\nendpoint, while the type can be a string of any characters except for the\nforward slash (`/`) up to 100 characters in length.\n\nAttachment data can be up to 1024 bytes long.\n\nAuthenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2)\nfrom a signed-in user with **Is owner** or **Can edit** permissions in the\nGoogle Developers Console project.",
+            "description": "Associates the given data with the specified beacon. Attachment data must\ncontain two parts:\n<ul>\n<li>A namespaced type.</li>\n<li>The actual attachment data itself.</li>\n</ul>\nThe namespaced type consists of two parts, the namespace and the type.\nThe namespace must be one of the values returned by the `namespaces`\nendpoint, while the type can be a string of any characters except for the\nforward slash (`/`) up to 100 characters in length.\n\nAttachment data can be up to 1024 bytes long.\n\nAuthenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2)\nfrom a signed-in user with **Is owner** or **Can edit** permissions in the\nGoogle Developers Console project.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/proximitybeacon_beacons_attachments_create.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "proximitybeacon_beacons_attachments_batchDelete": {
+            "main": "./lib/actions/proximitybeacon_beacons_attachments_batchDelete.js",
+            "title": "Deletes multiple attachments on a given beacon. This operation is\npermanent and cannot be undone.\n\nYou can optionally specify `namespacedType` to choose which attachments\nshould be deleted. If you do not specify `namespacedType`,  all your\nattachments on the given beacon will be deleted. You also may explicitly\nspecify `*/*` to delete all.\n\nAuthenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2)\nfrom a signed-in user with **Is owner** or **Can edit** permissions in the\nGoogle Developers Console project.",
+            "description": "Deletes multiple attachments on a given beacon. This operation is\npermanent and cannot be undone.\n\nYou can optionally specify `namespacedType` to choose which attachments\nshould be deleted. If you do not specify `namespacedType`,  all your\nattachments on the given beacon will be deleted. You also may explicitly\nspecify `*/*` to delete all.\n\nAuthenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2)\nfrom a signed-in user with **Is owner** or **Can edit** permissions in the\nGoogle Developers Console project.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/proximitybeacon_beacons_attachments_batchDelete.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "proximitybeacon_beacons_diagnostics_list": {
+            "main": "./lib/actions/proximitybeacon_beacons_diagnostics_list.js",
+            "title": "List the diagnostics for a single beacon. You can also list diagnostics for\nall the beacons owned by your Google Developers Console project by using\nthe beacon name `beacons/-`.\n\nAuthenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2)\nfrom a signed-in user with **viewer**, **Is owner** or **Can edit**\npermissions in the Google Developers Console project.",
+            "description": "List the diagnostics for a single beacon. You can also list diagnostics for\nall the beacons owned by your Google Developers Console project by using\nthe beacon name `beacons/-`.\n\nAuthenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2)\nfrom a signed-in user with **viewer**, **Is owner** or **Can edit**\npermissions in the Google Developers Console project.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/proximitybeacon_beacons_diagnostics_list.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "proximitybeacon_beacons_activate": {
+            "main": "./lib/actions/proximitybeacon_beacons_activate.js",
+            "title": "Activates a beacon. A beacon that is active will return information\nand attachment data when queried via `beaconinfo.getforobserved`.\nCalling this method on an already active beacon will do nothing (but\nwill return a successful response code).\n\nAuthenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2)\nfrom a signed-in user with **Is owner** or **Can edit** permissions in the\nGoogle Developers Console project.",
+            "description": "Activates a beacon. A beacon that is active will return information\nand attachment data when queried via `beaconinfo.getforobserved`.\nCalling this method on an already active beacon will do nothing (but\nwill return a successful response code).\n\nAuthenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2)\nfrom a signed-in user with **Is owner** or **Can edit** permissions in the\nGoogle Developers Console project.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/proximitybeacon_beacons_activate.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "proximitybeacon_beacons_deactivate": {
+            "main": "./lib/actions/proximitybeacon_beacons_deactivate.js",
+            "title": "Deactivates a beacon. Once deactivated, the API will not return\ninformation nor attachment data for the beacon when queried via\n`beaconinfo.getforobserved`. Calling this method on an already inactive\nbeacon will do nothing (but will return a successful response code).\n\nAuthenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2)\nfrom a signed-in user with **Is owner** or **Can edit** permissions in the\nGoogle Developers Console project.",
+            "description": "Deactivates a beacon. Once deactivated, the API will not return\ninformation nor attachment data for the beacon when queried via\n`beaconinfo.getforobserved`. Calling this method on an already inactive\nbeacon will do nothing (but will return a successful response code).\n\nAuthenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2)\nfrom a signed-in user with **Is owner** or **Can edit** permissions in the\nGoogle Developers Console project.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/proximitybeacon_beacons_deactivate.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "proximitybeacon_beacons_decommission": {
+            "main": "./lib/actions/proximitybeacon_beacons_decommission.js",
+            "title": "Decommissions the specified beacon in the service. This beacon will no\nlonger be returned from `beaconinfo.getforobserved`. This operation is\npermanent -- you will not be able to re-register a beacon with this ID\nagain.\n\nAuthenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2)\nfrom a signed-in user with **Is owner** or **Can edit** permissions in the\nGoogle Developers Console project.",
+            "description": "Decommissions the specified beacon in the service. This beacon will no\nlonger be returned from `beaconinfo.getforobserved`. This operation is\npermanent -- you will not be able to re-register a beacon with this ID\nagain.\n\nAuthenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2)\nfrom a signed-in user with **Is owner** or **Can edit** permissions in the\nGoogle Developers Console project.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/proximitybeacon_beacons_decommission.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "proximitybeacon_namespaces_update": {
+            "main": "./lib/actions/proximitybeacon_namespaces_update.js",
+            "title": "Updates the information about the specified namespace. Only the namespace\nvisibility can be updated.",
+            "description": "Updates the information about the specified namespace. Only the namespace\nvisibility can be updated.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/proximitybeacon_namespaces_update.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        }
+    }
+}
